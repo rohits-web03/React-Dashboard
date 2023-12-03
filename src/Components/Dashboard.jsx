@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [editedFields, setEditedFields] = useState({});
   const [search,setSearch]=useState('');
   const [keyPressed,setKeyPressed]=useState(false);
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
   useEffect(() => {
     console.log("Fetching from API");
@@ -69,6 +70,33 @@ const Dashboard = () => {
     setEditingUser(null);
   };
 
+  const handleCheckboxChange = (userId) => {
+    if (selectedUsers.includes(userId)) {
+      setSelectedUsers(selectedUsers.filter((id) => id !== userId));
+    } else {
+      setSelectedUsers([...selectedUsers, userId]);
+    }
+  };
+
+  const handleSelectAll = () => {
+    const currentPageUsers = users.slice(page * 10 - 10, page * 10).map(user => user.id);
+    const allSelected = currentPageUsers.every(userId => selectedUsers.includes(userId));
+  
+    if (allSelected) {
+      // Deselect all users in the current page
+      setSelectedUsers(selectedUsers.filter(userId => !currentPageUsers.includes(userId)));
+    } else {
+      // Select all users in the current page
+      setSelectedUsers([...selectedUsers, ...currentPageUsers]);
+    }
+  };
+
+  const handleDeleteSelected = () => {
+    const updatedUsers = users.filter((user) => !selectedUsers.includes(user.id));
+    setUsers(updatedUsers);
+    setSelectedUsers([]);
+  };
+
   const selectPageHandler = (selectedPage) => {
     console.log(selectedPage);
     console.log("Length",users.length/10)
@@ -82,6 +110,17 @@ const Dashboard = () => {
   return (
     <div className="Dashboard">
     <div className='control-panel'>
+      <div className="select-all">
+        <input
+          id="selectAll"
+          type="checkbox"
+          checked={selectedUsers.length > 0 && users
+            .slice(page * 10 - 10, page * 10)
+            .every(user => selectedUsers.includes(user.id))}
+          onChange={handleSelectAll}
+        />
+        <label for="selectAll">Select/Deselect All</label>
+      </div>
       <div className="search-box">
         <input 
           type="text" 
@@ -97,10 +136,10 @@ const Dashboard = () => {
         }}/>
       </div> 
       <div className='del'>
-        <button className="delete-btn button">
+        <button className="delete button" onClick={handleDeleteSelected} disabled={selectedUsers.length === 0}>
           Delete Selected
         </button>
-        <button className="delete-btn button" onClick={() => setUsers([])}>
+        <button className="delete button" onClick={() => setUsers([])}>
           Delete All
         </button>
       </div>
@@ -108,10 +147,11 @@ const Dashboard = () => {
       <table className="table"> 
         <thead>
           <tr>
+            <th className='head-title'>Select</th>
             <th className="head-title">Name</th>
             <th className="head-title">Email</th>
             <th className="head-title">Role</th>
-            <th className="head-title">Actions</th>
+            <th className="head-title actions">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -121,13 +161,18 @@ const Dashboard = () => {
   }
         )
   .slice(page * 10 - 10, page * 10).map(user => (
-            <tr key={user.id} className="table-row">
-            <td><input type='checkbox' /></td>
+            <tr key={user.id} className={`table-row ${selectedUsers.includes(user.id) ? 'selected-row' : ''}`}>
+              <td>                  
+                <input
+                  type="checkbox"
+                  checked={selectedUsers.includes(user.id)}
+                  onChange={() => handleCheckboxChange(user.id)}
+                />
+              </td>
               <td className="row-item">
                 {editingUser === user ? (
                   <input
                     type="text"
-                    className="form-control"
                     value={editedFields.name !== undefined ? editedFields.name : user.name}
                     onChange={(event) => handleInputChange('name', event.target.value)}
                   />
@@ -139,7 +184,6 @@ const Dashboard = () => {
                 {editingUser === user ? (
                   <input
                     type="email"
-                    className="form-control"
                     value={editedFields.email !== undefined ? editedFields.email : user.email}
                     onChange={(event) => handleInputChange('email', event.target.value)}
                   />
@@ -150,7 +194,6 @@ const Dashboard = () => {
               <td className="row-item">
                 {editingUser === user ? (
                   <select
-                    className="form-control"
                     value={editedFields.role !== undefined ? editedFields.role : user.role}
                     onChange={(event) => handleInputChange('role', event.target.value)}
                   >
@@ -164,21 +207,21 @@ const Dashboard = () => {
               <td className="row-item action-btn">
                 {editingUser === user ? (
                   <>
-                    <button className="edit-btn button" onClick={() => handleSave(user)}>
+                    <button className="save button" onClick={() => handleSave(user)}>
                       Save
                     </button>
                     &nbsp;
-                    <button className="delete-btn button" onClick={handleCancelEdit}>
+                    <button className="delete button" onClick={handleCancelEdit}>
                       Cancel
                     </button>
                   </>
                 ) : (
-                  <button className="edit-btn button" onClick={() => handleEdit(user)}>
+                  <button className="edit button" onClick={() => handleEdit(user)}>
                     Edit
                   </button>
                 )}
                 &nbsp;
-                <button className="delete-btn button" onClick={() => handleDelete(user.id)}>
+                <button className="delete button" onClick={() => handleDelete(user.id)}>
                   Delete
                 </button>
               </td>
