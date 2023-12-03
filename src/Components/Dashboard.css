@@ -4,17 +4,30 @@
     justify-content: center;
     padding: 0 1rem 1.5rem 1rem;
     height: 40px;
-    width: 60%;
+    width: 55%;
 }
 
 .search-box > input{
-    width: 60%;
+    width: 80%;
     height: 100%;
     font-size: 1rem;
-    padding-left: 1rem;
+}
+
+input{
     border: 1px solid #393838;
-    border-radius: 20px; /* Adjust this value to control the roundness */
+    border-radius: 20px;
     outline: none; 
+    padding-left: 1rem;
+}
+
+select{
+    border-radius: 20px;
+    height: 30px;
+}
+
+td input{
+    height: 30px;
+    font-size: 0.9rem;
 }
 
 .head-tile{
@@ -24,11 +37,27 @@
 .table{
     table-layout: auto;
     width: 100%;
-    padding: 0 0 0 5rem;
+    padding: 0 4rem 0 4rem;
+}
+
+th{
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: left;
+    padding-left: 1rem;
+}
+
+thead{
+    background-color: #39383848;
+    height: 50px;
+}
+
+td{
+    font-size: 1.1rem;
 }
 
 .table-row:hover{
-    background-color: rgba(128, 128, 128, 0.153);
+    background-color: rgba(19, 18, 18, 0.068);
 }
 
 .row-item{
@@ -40,7 +69,10 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+}
 
+.actions{
+    text-align: center;
 }
 
 button{
@@ -51,47 +83,75 @@ button{
     color: #fff; 
     font-weight: bold; 
     padding: 0.5rem 1rem 0.5rem 1rem;
-    border-radius: 0.25rem; 
+    border-radius: 0.5rem; 
     border: none;
 }
-.delete-btn {
+.delete {
     background-color: #EF4444; 
 }
 
-.edit-btn{
+.edit{
     background-color: #3B82F6;
 }
+
+.save{
+    background-color: rgb(127, 251, 127);
+}
+
+.selected-row {
+    background-color: rgba(19, 18, 18, 0.123); 
+  }
 
 .pagination {
     padding: 10px;
     margin: 15px 0;
     display: flex;
     justify-content: center;
-  }
-  
-  .pagination > span{
+}
+
+.pagination > span{
     padding: 15px 20px;
     border: 1px solid gray;
     cursor: pointer;
-  }
-  
-  .pagination__disable{
-    opacity: 0;
-  }
-  
-  .pagination__selected{
-    background-color: rgb(220, 220, 220);
-  }
+}
 
-  .control-panel{
+.pagination__disable{
+    opacity: 0;
+}
+
+.pagination__selected{
+    background-color: rgb(220, 220, 220);
+}
+
+.control-panel{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 1rem;
-  }
+}
 
-  .del{
+.select-all{
+    font-size: 1.1rem;
+    padding: 0 1rem 1.5rem 1rem;
+}
+
+.del{
     display: flex;
     gap: 5px;
     padding: 0 1rem 1.5rem 1rem;
+}
+
+  @media only screen and (max-width: 600px) {
+
+    .control-panel{
+        flex-direction: column;
+    }
+
+    .search-box{
+        width: 80%;
+    }
+
+    .search-box input{
+        width: 100%;
+    }
   }
