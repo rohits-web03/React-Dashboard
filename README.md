@@ -2,7 +2,7 @@
 
 <img src="https://github.com/rohits-web03/React-Dashboard/assets/132741672/36787501-e50a-4f5e-a643-10494bd5b38c" alt="Light Mode" width="400"/>
 <img src="https://github.com/rohits-web03/React-Dashboard/assets/132741672/89dc9bc8-3726-4041-9db7-b190e28af58f" alt="Dark Mode" width="400"/>&nbsp
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <b>Light Mode</b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <b>Dark Mode</b>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <b>Light Mode</b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <b>Dark Mode</b>
 <br>
 <br>
 The Admin Dashboard project is built using React, leveraging the powerful useState hook for seamless user data management. This application provides a dynamic interface allowing users to search, edit, and delete profiles efficiently. It also includes pagination features and offers a theme selector for enhanced user experience.
