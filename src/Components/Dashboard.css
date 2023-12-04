@@ -48,7 +48,7 @@ th{
 }
 
 thead{
-    background-color: #39383848;
+    background-color: #39383868;
     height: 50px;
 }
 
@@ -75,7 +75,7 @@ td{
     text-align: center;
 }
 
-button{
+button,input{
     cursor: pointer;
 }
 
@@ -109,7 +109,7 @@ button{
     justify-content: center;
 }
 
-.pagination > span{
+.pagination > div{
     padding: 15px 20px;
     border: 1px solid gray;
     cursor: pointer;
@@ -135,13 +135,19 @@ button{
     padding: 0 1rem 1.5rem 1rem;
 }
 
+.All-deleted{
+    font-size: 2rem;
+    text-align: center;
+    padding: 3rem;
+}
+
 .del{
     display: flex;
     gap: 5px;
     padding: 0 1rem 1.5rem 1rem;
 }
 
-  @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
 
     .control-panel{
         flex-direction: column;
@@ -149,9 +155,29 @@ button{
 
     .search-box{
         width: 80%;
+        order: -1;
     }
 
     .search-box input{
         width: 100%;
     }
-  }
+
+    td{
+        display: block;
+    }
+
+    .del,.control-panel{
+        padding: 0;
+        margin: 0;
+    }
+
+    td::before{
+        content: attr(data-cell);
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    th{
+        display: none;
+    }
+}

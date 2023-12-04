@@ -95,14 +95,15 @@ const Dashboard = () => {
     const updatedUsers = users.filter((user) => !selectedUsers.includes(user.id));
     setUsers(updatedUsers);
     setSelectedUsers([]);
+    if(page===Math.ceil(users.filter((user) => {
+      return handleSearch(user);
+    }).length / 10)){
+      setPage(page-1);
+    }
   };
 
   const selectPageHandler = (selectedPage) => {
-    console.log(selectedPage);
-    console.log("Length",users.length/10)
-    console.log(page);
-    if (selectedPage >= 1 && selectedPage <= (users.length / 10 + 1) && selectedPage !== page) {
-      console.log("inside");
+    if (selectedPage >= 1 && selectedPage < (users.length / 10 + 1) && selectedPage !== page) {
       setPage(selectedPage)
     }
   }
@@ -155,7 +156,7 @@ const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-        {users
+        {users.length>0? (users
   .filter((user) => {
     return handleSearch(user)
   }
@@ -169,7 +170,7 @@ const Dashboard = () => {
                   onChange={() => handleCheckboxChange(user.id)}
                 />
               </td>
-              <td className="row-item">
+              <td data-cell="Name: " className="row-item">
                 {editingUser === user ? (
                   <input
                     type="text"
@@ -180,7 +181,7 @@ const Dashboard = () => {
                   user.name
                 )}
               </td>
-              <td className="row-item">
+              <td data-cell="Email: " className="row-item">
                 {editingUser === user ? (
                   <input
                     type="email"
@@ -191,7 +192,7 @@ const Dashboard = () => {
                   user.email
                 )}
               </td>
-              <td className="row-item">
+              <td data-cell="Role: " className="row-item">
                 {editingUser === user ? (
                   <select
                     value={editedFields.role !== undefined ? editedFields.role : user.role}
@@ -204,7 +205,7 @@ const Dashboard = () => {
                   user.role
                 )}
               </td>
-              <td className="row-item action-btn">
+              <td data-cell="Actions: " className="row-item action-btn">
                 {editingUser === user ? (
                   <>
                     <button className="save button" onClick={() => handleSave(user)}>
@@ -226,43 +227,46 @@ const Dashboard = () => {
                 </button>
               </td>
             </tr>
-          ))}
+      ))
+        ):<tr>
+          <td className='All-deleted' colSpan={5}>No Data to show</td>
+        </tr>
+        }
         </tbody>
       </table>
       {users.length > 0 && 
         <div className="pagination">
-        <span 
-          onClick={() => selectPageHandler(page - 1)} 
-          className={page > 1 ? "" : "pagination__disable"}
-          >
-            ◀
-          </span>
-
-      {users.length > 0 &&
-        [...Array(Math.ceil(users.filter((user) => {
-          return handleSearch(user);
-        }).length / 10))].map((_, i) => {
-          return (
-            <span
-              key={i}
-              className={page === i + 1 ? "pagination__selected" : ""}
-              onClick={() => selectPageHandler(i + 1)}
+          <div 
+            onClick={() => selectPageHandler(page - 1)} 
+            className={page > 1 ? "" : "pagination__disable"}
             >
-              {i + 1}
-            </span>
-          );
-        })
-      }
+              ◀
+          </div>
 
+          {users.length > 0 &&
+            [...Array(Math.ceil(users.filter((user) => {
+              return handleSearch(user);
+            }).length / 10))].map((_, i) => {
+              return (
+                <div
+                  key={i}
+                  className={page === i + 1 ? "pagination__selected" : ""}
+                  onClick={() => selectPageHandler(i + 1)}
+                >
+                  {i + 1}
+                </div>
+              );
+            })
+          }
 
-        <span 
-          onClick={() => selectPageHandler(page + 1)} 
-          className={page < users.filter((user) => {
-            return handleSearch(user);
-          }).length / 10 ? "" : "pagination__disable"}
-          >
-            ▶
-          </span>
+          <div 
+            onClick={() => selectPageHandler(page + 1)} 
+            className={page < users.filter((user) => {
+              return handleSearch(user);
+            }).length / 10 ? "" : "pagination__disable"}
+            >
+              ▶
+          </div>
       </div>}
     </div>
   );
