@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Dashboard.css";
 
-const Dashboard = () => {
+const Dashboard = ({theme,changeTheme}) => {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [editingUser, setEditingUser] = useState(null);
@@ -17,14 +17,11 @@ const Dashboard = () => {
       .then(response => {
         console.log(response);
         setUsers(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
       });
   }, []);
-
-  // const handleKeyPress = (event) => {
-  //   if (event.key === 'Enter') {
-  //       setKeyPressed(true);
-  //   }
-  // };
 
   const handleSearch = (user) => {
     if (search.trim().length === 0 || !keyPressed) {
@@ -120,7 +117,7 @@ const Dashboard = () => {
             .every(user => selectedUsers.includes(user.id))}
           onChange={handleSelectAll}
         />
-        <label for="selectAll">Select/Deselect All</label>
+        <label htmlFor="selectAll">Select/Deselect All</label>
       </div>
       <div className="search-box">
         <input 
@@ -136,6 +133,14 @@ const Dashboard = () => {
           }
         }}/>
       </div> 
+      <select className='theme'
+        onChange={()=>{
+          changeTheme();
+          }}
+      >
+        <option>Light</option>
+        <option>Dark</option>
+      </select>
       <div className='del'>
         <button className="delete button" onClick={handleDeleteSelected} disabled={selectedUsers.length === 0}>
           Delete Selected

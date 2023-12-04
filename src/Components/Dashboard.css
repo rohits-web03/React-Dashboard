@@ -7,6 +7,14 @@
     width: 55%;
 }
 
+.theme{
+    margin: 0 1rem 1.5rem 1rem;
+    width: 60px;
+    height: 35px;
+}
+
+
+
 .search-box > input{
     width: 80%;
     height: 100%;
@@ -95,7 +103,7 @@ button,input{
 }
 
 .save{
-    background-color: rgb(127, 251, 127);
+    background-color: rgba(128, 223, 128, 0.813)
 }
 
 .selected-row {
@@ -145,6 +153,32 @@ button,input{
     display: flex;
     gap: 5px;
     padding: 0 1rem 1.5rem 1rem;
+}
+
+.Dark input,.Dark select{
+    background: rgba(128, 128, 128, 0.29);
+    color: white;
+}
+
+.Dark select:focus{
+    background: rgb(39, 37, 37);
+    color: white;
+}
+
+.Dark thead{
+    background-color: rgba(128, 128, 128, 0.404);
+}
+
+.Dark .pagination__selected{
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.Dark .table-row:hover{
+    background-color: rgba(66, 66, 66, 0.4);
+}
+
+.Dark .selected-row{
+    background-color: rgba(66, 66, 66, 0.55);
 }
 
 @media only screen and (max-width: 600px) {
